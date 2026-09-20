@@ -4,288 +4,231 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vikas Vinayak Naik | Cybersecurity & Web Developer</title>
+    
     <!-- Modern Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* ================= VARIABLES ================= */
         :root {
-            --bg-deep: #02050a;
-            --bg-panel: rgba(5, 10, 20, 0.7);
-            --bg-panel-solid: #050a14;
+            --bg-deep: #03060f;
+            --bg-panel: rgba(10, 15, 30, 0.7);
             --primary-cyan: #00f0ff;
-            --primary-blue: #0055ff;
+            --primary-pink: #ff0055;
             --text-main: #e2e8f0;
             --text-muted: #8b9bb4;
-            --border-glow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.1);
-            --border-color: rgba(0, 240, 255, 0.3);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s ease;
         }
 
         /* ================= GLOBAL & LAYOUT ================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Space Grotesk', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+        
+        body, html { width: 100%; min-height: 100vh; background-color: var(--bg-deep); color: var(--text-main); overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* BACKGROUND ANIMATIONS: Scanlines & Ambient Orbs */
-        .cyber-bg {
+        /* Clean CSS Grid Background (No JS required) */
+        .cyber-grid {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3;
-            background: 
-                linear-gradient(rgba(2, 5, 10, 0.92), rgba(2, 5, 10, 0.92)),
-                url('data:image/svg+xml;utf8,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M60 0L0 0 0 60" fill="none" stroke="rgba(0, 240, 255, 0.05)" stroke-width="1"/></svg>');
-            background-size: 60px 60px;
-            animation: panBg 20s linear infinite;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
-        @keyframes panBg { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
 
-        .orb {
-            position: fixed; border-radius: 50%; filter: blur(100px); z-index: -2; opacity: 0.4;
-            animation: floatOrb 20s infinite alternate ease-in-out;
-        }
-        .orb-1 { width: 400px; height: 400px; background: var(--primary-cyan); top: -10%; left: -10%; }
-        .orb-2 { width: 500px; height: 500px; background: var(--primary-blue); bottom: -10%; right: -10%; animation-delay: -5s; }
-        .orb-3 { width: 300px; height: 300px; background: #8a2be2; top: 40%; left: 40%; animation-delay: -10s; }
-        @keyframes floatOrb { 100% { transform: translate(150px, 150px) scale(1.3); } }
+        /* Ambient Static Glows for Depth */
+        .glow-orb-1 { position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(0,240,255,0.08) 0%, transparent 60%); z-index: -2; pointer-events: none; }
+        .glow-orb-2 { position: fixed; bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255,0,85,0.05) 0%, transparent 60%); z-index: -2; pointer-events: none; }
 
-        .container { max-width: 1400px; width: 90%; margin: 0 auto; padding: 0 1rem; }
+        .container { max-width: 1300px; width: 90%; margin: 0 auto; padding: 0 1rem; position: relative; z-index: 1;}
         a { text-decoration: none; color: inherit; }
 
         /* Typography */
-        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; color: #fff; letter-spacing: 1px; }
-        .text-cyan { color: var(--primary-cyan); text-shadow: 0 0 15px rgba(0, 240, 255, 0.6); }
-        .section-title { font-size: 1.8rem; text-transform: uppercase; margin-bottom: 2.5rem; color: var(--text-main); display: flex; align-items: center; gap: 15px; }
-        .section-title::before { content: '>'; color: var(--primary-cyan); font-weight: bold; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        .text-cyan { color: var(--primary-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+        .section-title { font-size: 2rem; text-transform: uppercase; margin-bottom: 2.5rem; color: #fff; display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: '>'; color: var(--primary-cyan); font-weight: bold; font-family: 'Fira Code', monospace; }
 
-        /* Interactive Glass Panel / Card Base */
-        .tilt-card {
+        /* Solid, Readable Glass Cards */
+        .glass-card {
             background: var(--bg-panel); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color); border-radius: 12px; padding: 2.5rem;
-            position: relative; transition: border-color 0.3s, box-shadow 0.3s;
-            transform-style: preserve-3d; /* Required for 3D tilt */
+            border: 1px solid rgba(0, 240, 255, 0.15); border-radius: 12px; padding: 2.5rem;
+            position: relative; transition: var(--transition); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .tilt-card:hover {
-            border-color: var(--primary-cyan);
-            box-shadow: var(--border-glow);
-            z-index: 10;
-        }
-        /* Top neon border scan effect */
-        .tilt-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent); transition: 0.6s;
-        }
-        .tilt-card:hover::before { left: 150%; transition: 0.8s ease-in-out; }
+        .glass-card:hover { border-color: var(--primary-cyan); box-shadow: 0 10px 30px rgba(0,240,255,0.1); transform: translateY(-3px); }
 
-        /* Child elements pop out during tilt */
-        .tilt-card > * { transform: translateZ(30px); }
+        /* Decorative top border on cards */
+        .glass-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--primary-cyan), transparent); border-top-left-radius: 12px; border-top-right-radius: 12px; opacity: 0; transition: var(--transition); }
+        .glass-card:hover::after { opacity: 1; }
 
         /* ================= NAVIGATION ================= */
         nav {
-            position: sticky; top: 0; z-index: 1000;
-            background: rgba(2, 5, 10, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-            width: 100%; /* Fixes the background stretching issue */
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(3, 6, 15, 0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
         }
-        .nav-inner {
-            max-width: 1400px; width: 90%; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.5rem 1rem;
-        }
-        .logo { font-size: 1.5rem; font-family: 'Orbitron', sans-serif; font-weight: 700; display: flex; align-items: center; gap: 10px;}
-        .logo i { color: var(--primary-cyan); filter: drop-shadow(0 0 10px var(--primary-cyan)); }
+        .nav-inner { max-width: 1300px; width: 90%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1rem; }
+        .logo { font-size: 1.4rem; font-family: 'Orbitron', sans-serif; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px;}
+        .logo i { color: var(--primary-cyan); }
         
         .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); color: var(--text-muted); }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-cyan); text-shadow: 0 0 12px var(--primary-cyan); transform: translateY(-2px); }
-        .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-cyan); }
+        .nav-links a { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+        
+        /* Mobile Menu Toggle - Highly Visible */
+        .mobile-toggle { display: none; font-size: 1.8rem; color: var(--primary-cyan); cursor: pointer; padding: 5px; }
+
+        /* ================= BUTTONS (Fixed & Highly Visible) ================= */
+        .btn-group { display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap;}
+        
+        .btn {
+            background: rgba(0, 240, 255, 0.05); border: 1px solid var(--primary-cyan); color: var(--primary-cyan);
+            padding: 14px 30px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-weight: 600;
+            transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--primary-cyan); color: #000; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+        
+        /* The main resume button */
+        .btn-filled { background: var(--primary-cyan); color: #000; font-weight: 700; border: 1px solid var(--primary-cyan); }
+        .btn-filled:hover { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
 
         /* ================= HERO SECTION ================= */
-        .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; min-height: 60vh; margin-top: 3rem; margin-bottom: 5rem; }
-        .hero-text h3 { color: var(--primary-cyan); font-family: 'Fira Code', monospace; font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px;}
-        .hero-text h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 1rem; font-weight: 900;}
-        .hero-text h2 { font-size: 1.4rem; color: #fff; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;}
-        .hero-text p { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 90%; }
+        .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; min-height: 70vh; padding-top: 3rem; margin-bottom: 4rem; }
+        .hero-text h3 { color: var(--primary-cyan); font-family: 'Fira Code', monospace; font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+        .hero-text h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; color: #fff;}
+        .hero-text h2 { font-size: 1.3rem; color: var(--text-main); margin-bottom: 1.5rem; font-weight: 400;}
+        .hero-text p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 90%; }
         
-        .btn-group { display: flex; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;}
-        .btn {
-            background: transparent; border: 1px solid var(--primary-cyan); color: var(--primary-cyan);
-            padding: 14px 32px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-weight: 600;
-            cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; font-size: 0.9rem;
-            position: relative; overflow: hidden;
-        }
-        .btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4), transparent); transition: 0.5s; }
-        .btn:hover::after { left: 100%; }
-        .btn:hover { background: rgba(0, 240, 255, 0.15); box-shadow: 0 0 20px rgba(0,240,255,0.5); transform: translateY(-3px); }
-        
-        /* Pulsing Primary Button */
-        .btn-filled { background: var(--primary-cyan); color: #000; animation: pulseGlow 2s infinite; }
-        @keyframes pulseGlow { 
-            0% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.5); } 
-            50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.9), 0 0 10px #fff; } 
-            100% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.5); } 
-        }
-        .btn-filled:hover { background: #fff; color: #000; box-shadow: 0 0 35px #fff; animation: none; transform: scale(1.05); }
+        .hero-social { display: flex; gap: 1.5rem; font-size: 1.5rem; }
+        .hero-social a { color: var(--text-main); background: rgba(255,255,255,0.05); padding: 12px; border-radius: 50%; transition: var(--transition); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; width: 50px; height: 50px;}
+        .hero-social a:hover { color: #000; background: var(--primary-cyan); border-color: var(--primary-cyan); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,240,255,0.4);}
 
-        .hero-social { display: flex; gap: 1.8rem; font-size: 1.8rem; }
-        .hero-social a { color: var(--text-muted); transition: var(--transition); }
-        .hero-social a:hover { color: var(--primary-cyan); filter: drop-shadow(0 0 12px var(--primary-cyan)); transform: translateY(-5px) scale(1.1);}
-
-        /* Animated Hero Image */
-        .hero-image { display: flex; justify-content: center; position: relative; }
+        /* Profile Image */
+        .hero-image { display: flex; justify-content: center; }
         .hero-image img {
             width: 320px; height: 320px; object-fit: cover; border-radius: 50%;
-            border: 4px solid var(--primary-cyan); 
-            box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 20px rgba(0,240,255,0.5);
-            animation: floatHero 5s ease-in-out infinite; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid var(--primary-cyan); padding: 10px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            transition: var(--transition);
         }
-        .hero-image img:hover { transform: scale(1.08) rotate(5deg); box-shadow: 0 0 60px rgba(0, 240, 255, 0.8); cursor: pointer; }
-        @keyframes floatHero { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero-image img:hover { transform: scale(1.02); box-shadow: 0 0 40px rgba(0, 240, 255, 0.4); }
 
-        /* ================= DASHBOARD LAYOUT ================= */
-        .dashboard { display: flex; flex-direction: column; gap: 4rem; padding-bottom: 3rem; }
+        /* ================= DASHBOARD ================= */
+        .dashboard { display: flex; flex-direction: column; gap: 4rem; padding-bottom: 5rem; }
+
+        /* RESUME CALLOUT */
+        .resume-banner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; background: linear-gradient(90deg, rgba(10,15,30,0.8), rgba(0,240,255,0.05)); border-left: 4px solid var(--primary-cyan); }
+        .resume-text h3 { font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
+        .resume-text p { color: var(--text-muted); font-family: 'Fira Code', monospace; font-size: 0.9rem;}
 
         /* ABOUT SECTION */
-        .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: center;}
-        .about-text h2 { margin-bottom: 1.5rem; color: #fff; font-size: 2rem;}
-        .about-text p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem;}
+        .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: center;}
+        .about-text h2 { margin-bottom: 1rem; color: #fff; font-size: 2rem;}
+        .about-text p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1rem;}
         
-        .quick-info { display: flex; flex-direction: column; gap: 1.5rem; }
-        .info-card { display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-cyan); transition: var(--transition); }
-        .info-card:hover { transform: translateX(10px); background: rgba(0,240,255,0.1); box-shadow: 0 0 20px rgba(0,240,255,0.2); }
-        .info-card i { color: var(--primary-cyan); width: 25px; text-align: center; font-size: 1.5rem;}
-        .info-card div h4 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
-        .info-card div p { font-size: 1.1rem; color: #fff; font-weight: 600;}
+        .quick-info { display: flex; flex-direction: column; gap: 1rem; }
+        .info-card { display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
+        .info-card i { color: var(--primary-cyan); width: 25px; text-align: center; font-size: 1.2rem;}
+        .info-card div h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
+        .info-card div p { font-size: 1rem; color: #fff; font-weight: 600;}
 
         /* SKILLS SECTION */
-        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
-        .skill-box { padding: 2rem 1.5rem; text-align: center; }
-        .skill-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1.5rem; color: #fff; font-family: 'Orbitron', sans-serif;}
-        .skill-header i { color: var(--primary-cyan); font-size: 1.5rem; filter: drop-shadow(0 0 5px var(--primary-cyan));}
-        .skill-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .skill-tag { background: rgba(0,240,255,0.05); padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; color: var(--text-main); font-family: 'Fira Code', monospace; border: 1px solid rgba(0,240,255,0.2); transition: 0.3s;}
-        .skill-box:hover .skill-tag { border-color: var(--primary-cyan); box-shadow: 0 0 10px rgba(0,240,255,0.3); color: var(--primary-cyan); }
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .skill-box { text-align: center; padding: 2rem 1rem; }
+        .skill-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1.2rem; color: #fff; font-size: 1.1rem;}
+        .skill-header i { color: var(--primary-cyan); font-size: 1.5rem; }
+        .skill-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        .skill-tag { background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 4px; font-size: 0.85rem; color: var(--text-main); font-family: 'Fira Code', monospace; border: 1px solid rgba(255,255,255,0.05); transition: var(--transition);}
+        .skill-box:hover .skill-tag { border-color: var(--primary-cyan); color: #fff; }
 
-        /* CERTIFICATIONS SECTION */
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .cert-card { display: flex; flex-direction: column; justify-content: space-between; }
-        .cert-card-top { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
-        .cert-icon { font-size: 3.5rem; color: var(--primary-cyan); filter: drop-shadow(0 0 10px rgba(0,240,255,0.5)); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
-        .cert-card:hover .cert-icon { transform: scale(1.2) rotate(10deg); }
-        .cert-info h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .cert-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0;}
-        .cert-card-bottom { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 1.5rem; margin-top: 1rem;}
-        .cert-meta .provider { color: var(--primary-cyan); font-family: 'Orbitron', sans-serif; font-size: 0.9rem; display: block; margin-bottom: 5px; }
-        .cert-meta .cred-id { font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-muted); }
+        /* CERTIFICATIONS & PROJECTS GRIDS */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        /* CARD INTERIORS */
+        .content-card { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+        .card-icon { font-size: 2.5rem; color: var(--primary-cyan); margin-bottom: 1rem; }
+        .content-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: #fff; }
+        .content-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+        
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+        .tech-stack span { font-size: 0.75rem; background: rgba(0,240,255,0.1); padding: 4px 10px; border-radius: 4px; color: var(--primary-cyan); font-family: 'Fira Code', monospace;}
+        
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.2rem; margin-top: auto;}
+        
+        /* Small Action Buttons in Cards */
+        .action-link { color: var(--primary-cyan); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; font-weight: 600; transition: var(--transition); border: 1px solid var(--primary-cyan); padding: 6px 12px; border-radius: 4px;}
+        .action-link:hover { background: var(--primary-cyan); color: #000; }
 
-        /* PROJECTS SECTION */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
-        .project-card { display: flex; flex-direction: column; padding: 2.5rem; }
-        .project-icon { font-size: 2.5rem; color: var(--primary-cyan); margin-bottom: 1.5rem; filter: drop-shadow(0 0 8px rgba(0,240,255,0.5)); transition: 0.3s;}
-        .project-card:hover .project-icon { transform: translateX(10px); }
-        .project-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .project-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem; flex-grow: 1; }
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 2rem; }
-        .tech-stack span { font-size: 0.8rem; background: rgba(0,240,255,0.1); padding: 6px 10px; border-radius: 4px; color: var(--primary-cyan); font-family: 'Fira Code', monospace; font-weight: 600;}
-        .project-links { display: flex; gap: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;}
-        .project-links a { color: var(--text-main); font-size: 1rem; transition: var(--transition); display: flex; align-items: center; gap: 8px; font-weight: 600;}
-        .project-links a:hover { color: var(--primary-cyan); transform: translateX(5px); }
+        .meta-info { font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-muted); }
+        .meta-info span { display: block; color: var(--text-main); font-family: 'Orbitron', sans-serif;}
 
         /* CONTACT SECTION */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-        .contact-info-wrapper { display: flex; flex-direction: column; gap: 1.5rem; }
-        .contact-item { display: flex; align-items: center; gap: 1.5rem; background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,240,255,0.1); transition: 0.3s;}
-        .contact-item:hover { border-color: var(--primary-cyan); background: rgba(0,240,255,0.05); transform: scale(1.02); box-shadow: 0 0 20px rgba(0,240,255,0.2);}
-        .contact-item i { font-size: 1.8rem; color: var(--primary-cyan); width: 40px; text-align: center;}
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-item { display: flex; align-items: center; gap: 1.5rem; background: rgba(0,0,0,0.4); padding: 1.2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 1rem;}
+        .contact-item i { font-size: 1.5rem; color: var(--primary-cyan); width: 30px; text-align: center;}
         
-        .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-form { display: flex; flex-direction: column; gap: 1rem; }
         .form-group input, .form-group textarea {
-            width: 100%; background: rgba(0,0,0,0.6); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px;
+            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
             padding: 1.2rem; color: #fff; font-family: 'Fira Code', monospace; font-size: 1rem; transition: var(--transition);
         }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-cyan); background: rgba(0,240,255,0.05); box-shadow: 0 0 15px rgba(0,240,255,0.3);}
-        .form-group textarea { min-height: 180px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-cyan); background: rgba(0,240,255,0.05); }
+        .form-group textarea { min-height: 150px; resize: vertical; }
 
-        /* ================= FOOTER SECTION ================= */
-        footer { 
-            border-top: 1px solid var(--border-color); padding: 3rem 0 1rem 0; margin-top: 2rem; 
-            background: rgba(5, 10, 20, 0.8); backdrop-filter: blur(10px); position: relative; z-index: 10;
-        }
-        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 0 1rem;}
-        .footer-logo { font-size: 1.1rem; color: var(--text-main); }
-        .footer-logo span { color: var(--primary-cyan); font-family: 'Orbitron', sans-serif; font-weight: bold;}
-        .footer-social { display: flex; gap: 1.8rem; font-size: 1.5rem; }
+        /* FOOTER */
+        footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 2.5rem 0; margin-top: 2rem; background: rgba(3, 6, 15, 0.95); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; max-width: 1300px; margin: 0 auto; padding: 0 1rem;}
+        .footer-logo { font-size: 1.1rem; color: var(--text-main); font-weight: bold;}
+        .footer-social { display: flex; gap: 1.5rem; font-size: 1.2rem; }
         .footer-social a { color: var(--text-muted); transition: var(--transition); }
-        .footer-social a:hover { color: var(--primary-cyan); transform: translateY(-5px); filter: drop-shadow(0 0 10px var(--primary-cyan)); }
-        .footer-sys { font-family: 'Fira Code', monospace; font-size: 0.9rem; letter-spacing: 1px; color: var(--text-muted);}
-        .footer-copyright { text-align: center; font-size: 0.85rem; color: rgba(139, 155, 180, 0.6); margin-top: 3rem; padding-top: 1.5rem; border-top: 1px dashed rgba(255,255,255,0.1); font-family: 'Fira Code', monospace; }
-        .back-to-top { color: var(--primary-cyan); text-decoration: none; margin-left: 15px; transition: 0.3s; font-weight: bold; }
-        .back-to-top:hover { text-shadow: 0 0 10px var(--primary-cyan); }
+        .footer-social a:hover { color: var(--primary-cyan); }
+        .footer-copyright { text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed rgba(255,255,255,0.1); font-family: 'Fira Code', monospace; }
 
-        /* ================= SCROLL REVEAL & RESPONSIVENESS ================= */
-        .reveal { opacity: 0; transform: translateY(50px) scale(0.95); transition: 0.8s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
-        
-        /* Staggered Grid Animations */
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
+        /* ================= SCROLL REVEAL (Clean & Smooth) ================= */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 1024px) {
-            .hero { grid-template-columns: 1fr; text-align: center; }
-            .hero-text p { margin: 0 auto 2.5rem auto; }
+        /* ================= RESPONSIVE DESIGN ================= */
+        @media (max-width: 900px) {
+            .hero, .about-grid, .contact-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem;}
+            .hero-text p { margin: 0 auto 2rem auto; }
             .btn-group, .hero-social { justify-content: center; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem;}
+            .info-card { justify-content: center; text-align: left; }
+            .resume-banner { flex-direction: column; text-align: center; }
         }
-
+        
         @media (max-width: 768px) {
             .nav-inner { padding: 1rem; }
-            .mobile-toggle { display: block; }
-            
-            .nav-links {
-                display: none; flex-direction: column; position: absolute;
-                top: 100%; left: 0; background: rgba(5,10,20,0.98); backdrop-filter: blur(20px);
-                width: 100%; text-align: center; padding: 1.5rem 0;
-                border-bottom: 1px solid var(--primary-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            .mobile-toggle { display: block; } /* Ensure hamburger is visible */
+            .nav-links { 
+                display: none; flex-direction: column; position: absolute; top: 100%; left: 0; 
+                background: #050a14; width: 100%; text-align: center; padding: 1rem 0; 
+                border-bottom: 1px solid var(--primary-cyan); 
             }
             .nav-links.show { display: flex; }
             .nav-links a { padding: 15px 0; font-size: 1.1rem; }
             
             .hero-text h1 { font-size: 3rem; }
             .hero-image img { width: 250px; height: 250px; }
-            .tilt-card { padding: 1.5rem; }
-            .footer-content { flex-direction: column; text-align: center; justify-content: center; }
-        }
-
-        @media (max-width: 480px) {
-            .skills-container, .cert-grid, .projects-grid { grid-template-columns: 1fr; }
+            .glass-card { padding: 1.5rem; }
+            .footer-content { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Cyber Background Elements -->
-    <div class="cyber-bg"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+    <!-- Background Elements -->
+    <div class="cyber-grid"></div>
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
 
-    <!-- NAVIGATION (Outside Container for Full Width) -->
+    <!-- NAVIGATION -->
     <nav>
         <div class="nav-inner">
             <div class="logo">
                 <i class="fas fa-shield-halved"></i> Vikas Naik
             </div>
+            <!-- Standard, highly visible hamburger icon -->
             <i class="fas fa-bars mobile-toggle"></i>
             <div class="nav-links">
                 <a href="#home" class="nav-item active">Home</a>
@@ -303,47 +246,61 @@
         <!-- HERO SECTION -->
         <section id="home" class="hero reveal active">
             <div class="hero-text">
-                <!-- Hacker typing effect target -->
-                <h3 id="typing-header">> <span></span><span class="cursor">|</span></h3>
-                <style>.cursor { animation: blink 1s step-end infinite; color: var(--primary-cyan);}</style>
+                <h3 id="typing-header">> <span></span><span style="color:var(--primary-cyan); animation: blink 1s step-end infinite;">_</span></h3>
+                <style>@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }</style>
                 
-                <h1>Cybersecurity & <br><span class="text-cyan">Web Developer</span></h1>
-                <h2>BCA Graduate | Web Applications | Network Security</h2>
-                <p>I am a BCA graduate combining full-stack development skills with a strong focus on cybersecurity. I build responsive web applications and secure them against vulnerabilities.</p>
+                <h1>Vikas Naik</h1>
+                <h2>Cybersecurity & Full-Stack Web Developer</h2>
+                <p>I engineer digital solutions that are highly functional and deeply secure. Combining modern web development skills with practical vulnerability analysis.</p>
                 
                 <div class="btn-group">
-                    <a href="#projects" class="btn btn-filled"><i class="fas fa-code-branch"></i> View Projects</a>
-                    <a href="#contact" class="btn"><i class="fas fa-terminal"></i> Contact Me</a>
+                    <a href="#projects" class="btn btn-filled">
+                        <i class="fas fa-code-branch"></i> View Projects
+                    </a>
+                    <a href="#contact" class="btn">
+                        <i class="fas fa-envelope"></i> Contact Me
+                    </a>
                 </div>
                 
                 <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/vikas-nk09" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/vikas-nk09" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://github.com/vikas-dev09" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="#contact"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
 
             <div class="hero-image">
-                <img src="./photos/photo.png" alt="Vikas Naik">
+                <img src="photos/photo.png" alt="Vikas Naik">
             </div>
         </section>
 
         <div class="dashboard">
 
+            <!-- HIGHLY VISIBLE RESUME CALLOUT -->
+            <section class="glass-card resume-banner reveal">
+                <div class="resume-text">
+                    <h3>Career Dossier</h3>
+                    <p>> ACADEMIC RECORDS: BCA (8.6 CGPA) | Pre-University (72.6%)</p>
+                </div>
+                <!-- Clean, highly visible solid button -->
+                <a href="photos/Vikas_Naik_Resume_2026.pdf" target="_blank" class="btn btn-filled">
+                    <i class="fas fa-file-pdf"></i> View Full Resume
+                </a>
+            </section>
+
             <!-- ABOUT SECTION -->
-            <section id="about" class="tilt-card reveal">
+            <section id="about" class="glass-card reveal">
                 <div class="section-title">System.Info</div>
                 <div class="about-grid">
                     <div class="about-text">
                         <h2>Who Am I?</h2>
-                        <p>Hello, I'm Vikas Vinayak Naik. I recently graduated with a Bachelor of Computer Applications (BCA) from Himalaya BCA College, Ankola, achieving an 8.6 CGPA.</p>
-                        <p>My goal is to engineer solutions that are highly functional and deeply secure. I am actively expanding my practical experience with penetration testing tools like Nmap, analyzing vulnerabilities, and studying advanced network defense while building real-world web platforms.</p>
+                        <p>Hello, I'm Vikas Vinayak Naik. I recently graduated with a Bachelor of Computer Applications from Himalaya BCA College.</p>
+                        <p>Whether I'm designing centralized college ERP systems, building responsive web applications, or scanning networks for vulnerabilities with Nmap, my goal is to build digital infrastructure that works flawlessly and remains secure against modern threats.</p>
                     </div>
 
                     <div class="quick-info">
                         <div class="info-card">
                             <i class="fas fa-graduation-cap"></i>
-                            <div><h4>Degree</h4><p>BCA (8.6 CGPA)</p></div>
+                            <div><h4>Degree</h4><p>BCA Graduate</p></div>
                         </div>
                         <div class="info-card">
                             <i class="fas fa-university"></i>
@@ -358,39 +315,32 @@
             </section>
 
             <!-- SKILLS SECTION -->
-            <section id="skills" class="tilt-card reveal">
+            <section id="skills" class="glass-card reveal">
                 <div class="section-title">Tech.Stack</div>
-                <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Core languages, frameworks, and tools deployed in my environment.</p>
                 
                 <div class="skills-container">
-                    <div class="skill-box tilt-card reveal delay-1">
-                        <div class="skill-header"><i class="fas fa-code"></i> Programming</div>
+                    <div class="skill-box glass-card">
+                        <div class="skill-header"><i class="fas fa-code"></i> Code</div>
                         <div class="skill-list">
                             <span class="skill-tag">C</span><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span>
                         </div>
                     </div>
-                    <div class="skill-box tilt-card reveal delay-2">
-                        <div class="skill-header"><i class="fas fa-laptop-code"></i> Web Dev</div>
+                    <div class="skill-box glass-card">
+                        <div class="skill-header"><i class="fas fa-laptop-code"></i> Web</div>
                         <div class="skill-list">
                             <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Bootstrap</span><span class="skill-tag">PHP</span>
                         </div>
                     </div>
-                    <div class="skill-box tilt-card reveal delay-3">
-                        <div class="skill-header"><i class="fas fa-database"></i> Databases</div>
+                    <div class="skill-box glass-card">
+                        <div class="skill-header"><i class="fas fa-database"></i> Data</div>
                         <div class="skill-list">
                             <span class="skill-tag">MySQL</span><span class="skill-tag">SQL</span>
                         </div>
                     </div>
-                    <div class="skill-box tilt-card reveal delay-1">
+                    <div class="skill-box glass-card">
                         <div class="skill-header"><i class="fas fa-shield-alt"></i> Cyber</div>
                         <div class="skill-list">
                             <span class="skill-tag">Network Security</span><span class="skill-tag">Vulnerability Scans</span><span class="skill-tag">Nmap</span>
-                        </div>
-                    </div>
-                    <div class="skill-box tilt-card reveal delay-2">
-                        <div class="skill-header"><i class="fas fa-tools"></i> Tools & OS</div>
-                        <div class="skill-list">
-                            <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">Linux</span><span class="skill-tag">Apache</span>
                         </div>
                     </div>
                 </div>
@@ -399,81 +349,53 @@
             <!-- CERTIFICATIONS SECTION -->
             <section id="certifications" class="reveal">
                 <div class="section-title">Certifications</div>
-                <div class="cert-grid">
+                <div class="grid-layout">
                     
-                    <div class="cert-card tilt-card reveal delay-1">
-                        <div class="cert-card-top">
-                            <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div class="cert-info">
-                                <h3>Cybersecurity Mastery</h3>
-                                <p>Comprehensive training covering network security, threat analysis, and digital defense mechanisms.</p>
-                            </div>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3>Cybersecurity Mastery</h3>
+                            <p>Comprehensive training covering network security, threat analysis, and digital defense mechanisms.</p>
                         </div>
-                        <div class="cert-card-bottom">
-                            <div class="cert-meta">
-                                <span class="provider">ISSUED BY: UPSTOP</span>
-                                <span class="cred-id">ID: CYB-8472910</span>
-                            </div>
-                            <a href="photos/cybersecurity_upstop.pdf" target="_blank" class="btn btn-filled" style="padding: 8px 16px;">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
+                        <div class="card-footer">
+                            <div class="meta-info"><span>UPSTOP</span>ID: CYB-8472910</div>
+                            <a href="photos/cybersecurity_upstop.pdf" target="_blank" class="action-link"><i class="fas fa-external-link-alt"></i> Verify</a>
                         </div>
                     </div>
 
-                    <div class="cert-card tilt-card reveal delay-2">
-                        <div class="cert-card-top">
-                            <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
-                            <div class="cert-info">
-                                <h3>Full Stack Web Development</h3>
-                                <p>End-to-end web architecture certification encompassing frontend UI/UX and backend database integration.</p>
-                            </div>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                            <h3>Full Stack Web Dev</h3>
+                            <p>End-to-end web architecture certification encompassing frontend UI/UX and backend database integration.</p>
                         </div>
-                        <div class="cert-card-bottom">
-                            <div class="cert-meta">
-                                <span class="provider">ISSUED BY: SKILLUP</span>
-                                <span class="cred-id">ID: FSW-3920184</span>
-                            </div>
-                            <a href="photos/web_dev.jpeg" target="_blank" class="btn btn-filled" style="padding: 8px 16px;">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
+                        <div class="card-footer">
+                            <div class="meta-info"><span>SKILLUP</span>ID: FSW-3920184</div>
+                            <a href="photos/web_dev.jpeg" target="_blank" class="action-link"><i class="fas fa-external-link-alt"></i> Verify</a>
                         </div>
                     </div>
 
-                    <div class="cert-card tilt-card reveal delay-1">
-                        <div class="cert-card-top">
-                            <div class="cert-icon"><i class="fab fa-python"></i></div>
-                            <div class="cert-info">
-                                <h3>Advanced Python</h3>
-                                <p>Practical training in advanced Python including object-oriented programming, automation, and API integration.</p>
-                            </div>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fab fa-python"></i></div>
+                            <h3>Advanced Python</h3>
+                            <p>Practical training in advanced Python including object-oriented programming, automation, and API integration.</p>
                         </div>
-                        <div class="cert-card-bottom">
-                            <div class="cert-meta">
-                                <span class="provider">ISSUED BY: SIMPLILEARN</span>
-                                <span class="cred-id">ID: 9757685</span>
-                            </div>
-                            <a href="photos/simplylearn.pdf" target="_blank" class="btn btn-filled" style="padding: 8px 16px;">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
+                        <div class="card-footer">
+                            <div class="meta-info"><span>SIMPLILEARN</span>ID: 9757685</div>
+                            <a href="photos/simplylearn.pdf" target="_blank" class="action-link"><i class="fas fa-external-link-alt"></i> Verify</a>
                         </div>
                     </div>
 
-                    <div class="cert-card tilt-card reveal delay-2">
-                        <div class="cert-card-top">
-                            <div class="cert-icon"><i class="fas fa-brain"></i></div>
-                            <div class="cert-info">
-                                <h3>AI FOUNDATION COURSE</h3>
-                                <p>Foundational knowledge of machine learning concepts, generative AI, neural networks, and practical AI applications.</p>
-                            </div>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-brain"></i></div>
+                            <h3>AI Foundation Course</h3>
+                            <p>Foundational knowledge of machine learning concepts, generative AI, neural networks, and practical AI applications.</p>
                         </div>
-                        <div class="cert-card-bottom">
-                            <div class="cert-meta">
-                                <span class="provider">ISSUED BY: JIO-INSTITUTION</span>
-                                <span class="cred-id">ID: tNiN7p31PYDn</span>
-                            </div>
-                            <a href="photos/AI_jio.pdf" target="_blank" class="btn btn-filled" style="padding: 8px 16px;">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
+                        <div class="card-footer">
+                            <div class="meta-info"><span>JIO-INSTITUTION</span>ID: tNiN7p31PYDn</div>
+                            <a href="photos/AI_jio.pdf" target="_blank" class="action-link"><i class="fas fa-external-link-alt"></i> Verify</a>
                         </div>
                     </div>
 
@@ -483,41 +405,47 @@
             <!-- PROJECTS SECTION -->
             <section id="projects" class="reveal">
                 <div class="section-title">Deployed.Projects</div>
-                <div class="projects-grid">
+                <div class="grid-layout">
 
-                    <div class="project-card tilt-card reveal delay-1">
-                        <div class="project-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3>SecureMind – Cyber Platform</h3>
-                        <p>An interactive cybersecurity awareness platform. Features password strength checking, URL analysis, phishing email detection, security quizzes, and an AI mentor.</p>
-                        <div class="tech-stack">
-                            <span>Python</span><span>Flask</span><span>HTML5</span><span>CSS3</span><span>JS</span><span>Bootstrap</span><span>Gemini API</span>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-lock"></i></div>
+                            <h3>SecureMind Platform</h3>
+                            <p>An interactive cybersecurity awareness platform. Features password strength checking, URL analysis, phishing email detection, and security quizzes.</p>
+                            <div class="tech-stack">
+                                <span>Python</span><span>Flask</span><span>JS</span><span>Gemini API</span>
+                            </div>
                         </div>
-                        <div class="project-links">
-                            <a href="https://github.com/vikas-dev09/SecureMind" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                        <div class="card-footer">
+                            <a href="https://github.com/vikas-dev09/SecureMind" target="_blank" class="btn btn-filled" style="padding: 8px 16px; font-size: 0.85rem;"><i class="fab fa-github"></i> Repository</a>
                         </div>
                     </div>
 
-                    <div class="project-card tilt-card reveal delay-2">
-                        <div class="project-icon"><i class="fas fa-university"></i></div>
-                        <h3>Aureon ERP System</h3>
-                        <p>A centralized college management system containing robust modules for administrators, faculty, and students. Developed complex ERD/DFD diagrams and structured testing.</p>
-                        <div class="tech-stack">
-                            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span><span>REST API</span><span>MySQL</span><span>Apache</span>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-university"></i></div>
+                            <h3>Aureon ERP System</h3>
+                            <p>A centralized college management system containing robust modules for administrators, faculty, and students. Developed complex ERD/DFD diagrams.</p>
+                            <div class="tech-stack">
+                                <span>HTML/CSS</span><span>PHP</span><span>MySQL</span><span>Apache</span>
+                            </div>
                         </div>
-                        <div class="project-links">
-                            <a href="https://github.com/vikas-dev09/college-erp-system" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                        <div class="card-footer">
+                            <a href="https://github.com/vikas-dev09/college-erp-system" target="_blank" class="btn btn-filled" style="padding: 8px 16px; font-size: 0.85rem;"><i class="fab fa-github"></i> Repository</a>
                         </div>
                     </div>
 
-                    <div class="project-card tilt-card reveal delay-3">
-                        <div class="project-icon"><i class="fas fa-utensils"></i></div>
-                        <h3>Food Recipe Website</h3>
-                        <p>A responsive food recipe web application designed to showcase various dishes and culinary instructions. Built with a focus on modern UI/UX principles and a clean interface.</p>
-                        <div class="tech-stack">
-                            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span><span>MySQL</span>
+                    <div class="glass-card content-card">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-utensils"></i></div>
+                            <h3>Food Recipe Platform</h3>
+                            <p>A responsive food recipe web application designed to showcase various dishes and culinary instructions. Built with a focus on modern UI/UX principles.</p>
+                            <div class="tech-stack">
+                                <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span>
+                            </div>
                         </div>
-                        <div class="project-links">
-                            <a href="https://github.com/vikas-dev09/food-recipe-website" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                        <div class="card-footer">
+                            <a href="https://github.com/vikas-dev09/food-recipe-website" target="_blank" class="btn btn-filled" style="padding: 8px 16px; font-size: 0.85rem;"><i class="fab fa-github"></i> Repository</a>
                         </div>
                     </div>
 
@@ -525,53 +453,46 @@
             </section>
 
             <!-- CONTACT SECTION -->
-            <section id="contact" class="tilt-card reveal">
+            <section id="contact" class="glass-card reveal">
                 <div class="section-title">Establish.Connection</div>
                 <div class="contact-grid">
                     
                     <div class="contact-info-wrapper">
-                        <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem; color: #fff;">Let's Secure the Future</h2>
-                        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Open for opportunities, collaborations, or discussions around web development and cybersecurity.</p>
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #fff;">Let's Secure the Future</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Open for opportunities, collaborations, or discussions around web development and cybersecurity.</p>
                         
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4 style="font-size: 0.9rem; color: var(--text-muted);">EMAIL</h4>
-                                <p style="font-family: 'Fira Code', monospace; font-size: 1rem;">vikasnaik9741@gmail.com</p>
+                        <div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h4 style="font-size: 0.8rem; color: var(--text-muted);">EMAIL</h4>
+                                    <p style="font-family: 'Fira Code', monospace; color: #fff;">vikasnaik9741@gmail.com</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin-in"></i>
-                            <div>
-                                <h4 style="font-size: 0.9rem; color: var(--text-muted);">LINKEDIN</h4>
-                                <p style="font-family: 'Fira Code', monospace; font-size: 1rem;">/in/vikas-nk09</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4 style="font-size: 0.9rem; color: var(--text-muted);">LOCATION</h4>
-                                <p style="font-family: 'Fira Code', monospace; font-size: 1rem;">Ankola, Karnataka, India</p>
+                            <div class="contact-item">
+                                <i class="fab fa-linkedin-in"></i>
+                                <div>
+                                    <h4 style="font-size: 0.8rem; color: var(--text-muted);">LINKEDIN</h4>
+                                    <p style="font-family: 'Fira Code', monospace; color: #fff;">/in/vikas-nk09</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="contact-form-container">
-                        <!-- Replace "YOUR_FORM_ID" with your actual Formspree ID to receive real emails -->
+                        <!-- Replace "YOUR_FORM_ID" with your actual Formspree ID -->
                         <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
                             <div class="form-group">
-                                <input type="text" name="name" placeholder="[ ENTER_YOUR_NAME ]" required>
+                                <input type="text" name="name" placeholder="Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" placeholder="[ ENTER_YOUR_EMAIL ]" required>
+                                <input type="email" name="email" placeholder="Email Address" required>
                             </div>
                             <div class="form-group">
-                                <textarea name="message" placeholder="[ TRANSMIT_YOUR_MESSAGE ]" required></textarea>
+                                <textarea name="message" placeholder="Your Message..." required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-filled" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 18px; letter-spacing: 2px;">
-                                <i class="fas fa-paper-plane"></i> INITIATE TRANSFER
+                            <button type="submit" class="btn btn-filled" style="width: 100%; justify-content: center; padding: 16px;">
+                                <i class="fas fa-paper-plane"></i> Send Message
                             </button>
                         </form>
                     </div>
@@ -583,117 +504,78 @@
 
     </div> <!-- End Container -->
 
-    <!-- FOOTER SECTION -->
-    <footer class="reveal">
+    <!-- FOOTER -->
+    <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <strong>Vikas Naik</strong> &nbsp;|&nbsp; <span>Cybersecurity & Web Dev</span>
+                <strong>Vikas Naik</strong> &nbsp;|&nbsp; <span style="color: var(--primary-cyan);">Cybersecurity & Web Dev</span>
             </div>
             <div class="footer-social">
-                <a href="https://www.linkedin.com/in/vikas-nk09" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/vikas-dev09" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="mailto:vikasnaik9741@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <div class="footer-sys">
-                SYS.STATUS: <span style="color: #27c93f;">ONLINE</span> // 2026
+                <a href="https://www.linkedin.com/in/vikas-nk09" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/vikas-dev09" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:vikasnaik9741@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div class="footer-copyright">
-            &copy; 2026 Vikas Naik. All Rights Reserved. <a href="#home" class="back-to-top">Back to Top <i class="fas fa-arrow-up"></i></a>
+            &copy; 2026 Vikas Naik. All Rights Reserved. 
         </div>
     </footer>
 
-    <!-- JAVASCRIPT ANIMATIONS & LOGIC -->
+    <!-- JAVASCRIPT LOGIC (No laggy cursors or canvas!) -->
     <script>
-        // 1. Mobile Menu Toggle
+        // 1. Clean Hacker Typing Effect
+        const typingElement = document.querySelector('#typing-header span:first-child');
+        const textToType = "SYSTEM_READY";
+        let typeIndex = 0;
+        function typeText() {
+            if (typeIndex < textToType.length) {
+                typingElement.textContent += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeText, 100);
+            }
+        }
+        setTimeout(typeText, 500);
+
+        // 2. Reliable Mobile Menu Toggle
         const menuBtn = document.querySelector('.mobile-toggle');
         const navLinks = document.querySelector('.nav-links');
         
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('show');
-            if(navLinks.classList.contains('show')) {
-                menuBtn.classList.remove('fa-bars');
-                menuBtn.classList.add('fa-times');
-            } else {
-                menuBtn.classList.remove('fa-times');
-                menuBtn.classList.add('fa-bars');
-            }
+            menuBtn.classList.toggle('fa-bars'); 
+            menuBtn.classList.toggle('fa-times');
         });
 
-        // 2. Smooth Scrolling & Active State Updates
+        // 3. Smooth Scrolling & Menu Auto-Close
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                
                 if(target) target.scrollIntoView({ behavior: 'smooth' });
                 
                 if (this.classList.contains('nav-item')) {
                     document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
                     this.classList.add('active');
                 }
-
                 navLinks.classList.remove('show');
-                menuBtn.classList.remove('fa-times');
+                menuBtn.classList.remove('fa-times'); 
                 menuBtn.classList.add('fa-bars');
             });
         });
 
-        // 3. Staggered Scroll Reveal Animation 
+        // 4. Smooth, Lightweight Scroll Reveal
         function reveal() {
             const reveals = document.querySelectorAll(".reveal");
             for (let i = 0; i < reveals.length; i++) {
                 const windowHeight = window.innerHeight;
                 const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 50) {
                     reveals[i].classList.add("active");
                 }
             }
         }
-        window.addEventListener("scroll", reveal);
-        setTimeout(reveal, 100);
-
-        // 4. Interactive 3D Card Tilt Effect (Desktop Only)
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        
-        if (window.matchMedia("(min-width: 768px)").matches) {
-            tiltCards.forEach(card => {
-                card.addEventListener('mousemove', e => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left; 
-                    const y = e.clientY - rect.top;  
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = ((y - centerY) / centerY) * -5; // Max 5 degree tilt
-                    const rotateY = ((x - centerX) / centerX) * 5;
-
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-                });
-            });
-        }
-
-        // 5. Hacker Typing Effect for Hero Text
-        const typingElement = document.querySelector('#typing-header span:first-child');
-        const textToType = "INITIALIZING_PROFILE...";
-        let typeIndex = 0;
-
-        function typeText() {
-            if (typeIndex < textToType.length) {
-                typingElement.textContent += textToType.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(typeText, 60 + Math.random() * 50); // Random typing speed variance
-            }
-        }
-        // Start typing effect shortly after load
-        setTimeout(typeText, 500);
-
+        window.addEventListener("scroll", reveal); 
+        reveal(); // Trigger once on load
     </script>
 </body>
 </html>
